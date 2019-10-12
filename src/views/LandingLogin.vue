@@ -232,7 +232,7 @@ export default {
   }
 
   .humans {
-    /*animation: 2s slideUp infinite;*/
+    animation: 2s rotateRight ease-in-out infinite alternate;
     position: absolute;
     width: 400px;
     height: 500px;
@@ -259,8 +259,8 @@ export default {
   }
 
   #smallStar {
-    animation: 3s slideDown ease-in-out infinite alternate;
-    animation-delay: 3s;
+    animation: 3s slideDown ease-in-out infinite alternate-reverse;
+    animation-delay: 4s;
     position: absolute;
     width: 58px;
     height: 58px;
@@ -279,8 +279,8 @@ export default {
   }
 
   #lowerCircle {
-    animation: 3s slideDown ease-in-out infinite alternate;
-    animation-delay: 3s;
+    animation: 3s slideDown ease-in-out infinite alternate-reverse;
+    animation-delay: 4s;
     position: absolute;
     width: 63px;
     height: 63px;
@@ -301,8 +301,8 @@ export default {
   }
 
   #smallestStar2 {
-    animation: 3s slideDown ease-in-out infinite alternate;
-    animation-delay: 3s;
+    animation: 3s slideDown ease-in-out infinite alternate-reverse;
+    animation-delay: 4s;
     position: absolute;
     width: 20px;
     height: 20px;
@@ -323,7 +323,7 @@ export default {
   }
 
   #upperCircle {
-    animation: 3s slideDown ease-in-out infinite alternate;
+    animation: 3s slideDown ease-in-out infinite alternate-reverse;
     animation-delay: 3s;
     position: absolute;
     width: 35px;
@@ -339,7 +339,7 @@ export default {
     }
 
     100% {
-      margin-top: 28px;
+      margin-top: 20px;
     }
   }
 
@@ -349,7 +349,17 @@ export default {
     }
 
     100% {
-      margin-top: 12px;
+      margin-top: 15px;
     }
+  }
+
+  @keyframes rotateRight {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(2deg);}
+  }
+
+  @keyframes rotateLeft {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(-2deg);}
   }
 </style>
