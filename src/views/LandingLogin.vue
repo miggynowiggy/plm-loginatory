@@ -7,36 +7,52 @@
       >
         <div>
           <p class="text-left text-uppercase">
-            Welcome to <span class="primary--text">{{ labName }}</span> Laboratory ! ({{ bldg }})
+            Welcome to <span class="primary--text">{{ lab.labName }}</span> Laboratory! ({{ lab.bldg }})
           </p>
         </div>
       </v-card>
       
       <div class="instruction">Tap your ID Card to Login/Logout...</div>
       <div id="subInstruction">
-        or <span id="click" @click="txtBoxToggle = !txtBoxToggle">CLICK HERE</span> to manually enter your student number....
+        or <!--<span id="click" @click="txtBoxToggle = !txtBoxToggle">CLICK HERE</span> to--> manually enter your student number below....
       </div>
       
       <div id="textBox">
-        <v-text-field 
-          v-if="txtBoxToggle"
-          v-model="idNum"
-          solo
-          outlined
-          dense
-          rounded
-          color="primary"
-          label="Enter Your Student Number"
-          placeholder="ex. 201812345"
-          append-outer-icon="check"
-          clearable
-          :loading="loading"
-          @keyup.enter="submitID"
-          @click:append-outer="submitID"
-        ></v-text-field>
+        <v-layout row>
+          <v-flex xs12>
+            <v-text-field 
+              v-model="idNum"
+              solo
+              outlined
+              dense
+              rounded
+              focusable
+              color="primary"
+              label="Enter Your Student Number"
+              placeholder="ex. 201812345"
+              append-outer-icon="check"
+              clearable
+              :loading="loading"
+              @keyup.enter="submitID"
+              @click:append-outer="submitID"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 class="primary--text" v-if="showError || !loading">
+            <p class="text-left font-weight-bold">{{ errorMessage }}</p>
+          </v-flex>
+        </v-layout>
+      </div>
+      <div>
+        <v-btn color="primary" depressed small @click="logout">LOGOUT</v-btn>
       </div>
     </div>
-
+    
+    <v-layout class="clock">
+      <v-flex xs2>
+        <digiClock/>
+      </v-flex>
+    </v-layout>
+    
     <div class="humans">
       <svg width="325" height="403" viewBox="0 0 525 603" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d)">
@@ -135,49 +151,135 @@
 <script>
 import 'animate.css/animate.min.css';
 import anime from 'animejs/lib/anime.es.js';
+import digiClock from '@/components/digiClock.vue';
+import http from "@/http-common";
+import { mapState } from "vuex";
+import ReasonEncodingVue from './ReasonEncoding.vue';
 //const anime = require('anime');
 
 export default {
   mounted() {
-    this.animate()    
+    
   },
+
   data: () => ({
-    labName: 'Physics',
-    bldg: 'GL',
-    txtBoxToggle: true,
-    idNum: null,
     loading: false,
+    idNum: null,
+    showError: false,
+    errorMessage: ""
   }),
 
   methods: {
-    animate() {
-      const wow = this.$refs.try;
-      anime({
-        target: '.try',
-        translateX: 550,
-        direction: 'alternate',
-        loop: true,
-        easing: 'linear'
-      });
+    logout() {
+      this.$store.commit("LOGOUT");
+      this.$router.push('/');
     },
 
-    submitID() {
+    async submitID() {
       this.loading = true;
-      console.log(this.idNum);
-      setTimeout(() => {
+      this.showError = false;
+      this.errorMessage = "";
+      
+      let status = null;
+      let stuDetails = null;
+      let response = null;
+
+      if(!this.idNum || this.idNum === " ") {
+        this.showError = true;
+        this.errorMessage = "Please Provide Your Student Number...";
         this.loading = false;
-        this.idNum = null;
-      }, 3000);
+        return;
+      }
+
+      try {
+        response = await http.get("/students/" + this.idNum);
+        stuDetails = response.data;
+        console.log("FROM BACKEND: ", stuDetails);
+        this.loading = false;
+      }
+      catch(error) {
+        console.log("FETCHING STUDENT DETAILS ERROR: ", error);
+        this.loading = false;
+      }
+
+      try {
+        response = await http.post("/attendance/check", {visitorID: this.idNum, labID: this.lab.labID});
+        status = response.data;
+        console.log("FROM BACKEND: ", status);
+        this.loading = false;
+      }
+      catch(error) {
+        console.log("ATTENDANCE CHECK ERROR: ", error);
+        this.loading = false;
+      }
+
+      //console.log("AFTER TRY-CATCH");
+
+      if(stuDetails && status == "loggedOUT") {
+        console.log("push to /reason");
+        this.$router.push(
+          {
+            name: 'reasonEncoding',
+            params: 
+              {
+                stuDetails,
+                labID: this.lab.labID
+              }
+          }
+        );
+      }
+      else if(stuDetails && status == "loggedIN") {
+        console.log("push to /confirmExit");
+        console.log("STUDETAILS: ", stuDetails);
+
+        try {
+          const response = await http.post("/attendance/add", {visitorID: this.idNum, labID: this.lab.labID});
+          console.log("LOGGED OUT SUCCESSFULLY: ", response.data);
+        }
+        catch(error) {
+          console.log("ERROR IN LOGGING OUT: ", error);
+        }
+
+        this.$router.push(
+          {
+            name: 'confirmExit',
+            params: { stuDetails: stuDetails }
+          }
+        );
+      }
+      else {
+        console.log("ito ang salarin!");
+        this.showError = true;
+        this.errorMessage = "Student Number is INVALID!";
+      }
+      this.loading = false;
     }
   },
 
   computed: {
-    
+    lab() {
+      return this.$store.getters.GET_CURRENT_LAB;
+    },
+
+    notBlank() {
+      return !this.idNum;
+    }
   },
+
+  components: {
+    digiClock
+  }
 }
 </script>
 
 <style scoped>
+
+  #clock {
+    position: absolute;
+    left: 100px;
+    top: 25px;
+    width: 300px;
+  }
 
   .greetings {
     position: absolute;
@@ -229,6 +331,7 @@ export default {
   #textBox {
     margin-top: 30px;
     width: 280px;
+    margin-left: 10px;
   }
 
   .humans {
@@ -339,7 +442,7 @@ export default {
     }
 
     100% {
-      margin-top: 20px;
+      margin-top: 30px;
     }
   }
 
@@ -349,17 +452,17 @@ export default {
     }
 
     100% {
-      margin-top: 15px;
+      margin-top: 25px;
     }
   }
 
   @keyframes rotateRight {
     from {transform: rotate(0deg);}
-    to {transform: rotate(2deg);}
+    to {transform: rotate(4deg);}
   }
 
   @keyframes rotateLeft {
     from {transform: rotate(0deg);}
-    to {transform: rotate(-2deg);}
+    to {transform: rotate(-4deg);}
   }
 </style>

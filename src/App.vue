@@ -7,15 +7,32 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 
 export default {
   name: "App",
+  mounted() {
+    // const lab = this.$store.state.currentLab;
+    // if(!lab) {
+    //   this.$router.push('/');
+    // }
+    // else {
+    //   this.$router.push('/read');
+    // }
+  },
+  
+  watch: {
+    
+  },
+
+  computed: {
+    
+  },
+
   components: {
-    HelloWorld
+    
   },
   data: () => ({
-    //
+    currentLab: {}
   })
 };
 </script>
