@@ -2,9 +2,8 @@
   <v-container fluid fill-height>
     <div class="picHeader">
       <v-img 
-        :src="plmLBG"
+        :src="require('@/assets/bldg.jpg')"
         alt="plmBG"
-        contain
         gradient="to top right, rgba(200,36,58,.33), rgba(217,27,44,.7)"
       ></v-img>
     </div>
@@ -25,7 +24,7 @@
                   size="120"
                 >
                   <v-img 
-                    src="@/assets/plmlogo.jpg" 
+                    :src="require('@/assets/plmlogo.png')" 
                     alt="plmLogo"
                     class="elevation-6"
                   ></v-img>
@@ -119,14 +118,14 @@
 </template>
 
 <script>
-import plmLogo from "@/assets/plmlogo.jpg";
-import plmBG from "@/assets/img/bldg.jpg";
+import plmLogo from "@/assets/plmlogo.png";
+import plmBG from "@/assets/img/plm2.jpg";
 import http from "../http-common";
 
 export default {
   computed: {
     plmBG() {
-      return plmBG || require("@/assets/img/bldg.jpg");
+      return plmBG || "@/assets/img/plm2.jpg";
     }
   },
   
@@ -136,7 +135,6 @@ export default {
     dialog: false,
     username: '',
     password: '',
-    plmBG: require("../assets/img/bldg.jpg")
   }),
 
   methods: {
@@ -172,7 +170,7 @@ export default {
   .picHeader {
     position: absolute;
     left: 0px;
-    top: -250px;
+    top: -163px;
     z-index: 0;
     height: 100vh;
     width: 100vw;
