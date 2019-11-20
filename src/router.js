@@ -1,6 +1,16 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import LandingLogin from "./views/LandingLogin.vue";
+import ReasonEncoding from "./views/ReasonEncoding.vue";
+import ConfirmEntry from "./views/confirmEntrance.vue";
+import ConfirmExit from "./views/confirmExit.vue";
+import BorrowItem from "./views/borrowItem.vue";
+import ReturnItem from "./views/returnItem.vue";
+
+import Dashboard from "./views/AdminView/dashboard.vue";
+import VisitorsView from "./views/AdminView/visitorsView.vue";
+import Inventory from "./views/AdminView/inventory.vue";
 
 Vue.use(Router);
 
@@ -10,17 +20,53 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "login",
+      component: Login
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/read",
+      name: "landingLogin",
+      component: LandingLogin,
+    },
+    {
+      path: "/reason",
+      name: "reasonEncoding",
+      component: ReasonEncoding,
+    },
+    {
+      path: "/confirmEntry",
+      name: "confirmEntry",
+      component: ConfirmEntry,
+    },
+    {
+      path: "/confirmExit",
+      name: "confirmExit",
+      component: ConfirmExit,
+    },
+    {
+      path: "/borrowItem",
+      name: "borrowItem",
+      component: BorrowItem
+    },
+    {
+      path: "/returnItem",
+      name: "returnItem",
+      component: ReturnItem
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard,
+    },
+    {
+      path: "/visitorsView",
+      name: "visitorsView",
+      component: VisitorsView,
+    },
+    {
+      path: "/inventory",
+      name: "inventory",
+      component: Inventory,
     }
   ]
 });
