@@ -19,11 +19,9 @@
                     </div>
                 </v-flex>
             </v-layout>
-            <v-layout row align-center justify-start>
-                <v-flex xs7>
-                    <digiClock class="clock"/>
-                </v-flex>
-            </v-layout>
+
+            <digiClock class="clock"/>
+            
             <v-layout row align-center justify-end>
                 <p class="message">You may now leave the laboratory</p>
             </v-layout>
@@ -105,8 +103,8 @@ export default {
 <style scoped>
     .graphics {
         position: absolute;
-        top: 70px;
-        left: 880px;
+        top: 90px;
+        left: 980px;
     }
 
     .humanBG {
@@ -121,6 +119,7 @@ export default {
         height: 258px;
         top: 80px;
         left: 30px;
+        transform: matrix(-1, 0, 0, 1, 0, 0);
     }
 
     .words {
@@ -148,6 +147,7 @@ export default {
         position: absolute;
         left: 310px;
         top: 250px;
+        width: 520px;
     }
 
     .message {

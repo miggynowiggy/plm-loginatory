@@ -19,15 +19,15 @@
                     </div>
                 </v-flex>
             </v-layout>
-            <v-layout row align-center justify-start>
-                <v-flex xs7>
-                    <digiClock class="clock"/>
-                </v-flex>
-            </v-layout>
+
+            <digiClock class="clock"/>
+            
             <v-layout row align-center justify-end>
                 <p class="message">You may now enter the laboratory</p>
             </v-layout>
+
         </div>
+
         <div class="graphics">
             <div class="humanBG">
                 <svg viewBox="0 0 596 752" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,8 +105,8 @@ export default {
 <style scoped>
     .graphics {
         position: absolute;
-        top: 70px;
-        left: 880px;
+        top: 90px;
+        left: 980px;
     }
 
     .humanBG {
@@ -124,7 +124,7 @@ export default {
     }
 
     .words {
-        width: 720px;
+        width: 750px;
         height: 720px;
     }
 
@@ -148,6 +148,7 @@ export default {
         position: absolute;
         left: 310px;
         top: 250px;
+        width: 520px;
     }
 
     .message {

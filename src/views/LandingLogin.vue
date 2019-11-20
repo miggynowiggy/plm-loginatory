@@ -27,9 +27,10 @@
               dense
               rounded
               focusable
+              autofocus
               color="primary"
               label="Enter Your Student Number"
-              placeholder="ex. 201812345"
+              placeholder="ex. 201812345, then press 'Enter'"
               append-outer-icon="check"
               clearable
               :loading="loading"
@@ -42,13 +43,13 @@
           </v-flex>
         </v-layout>
       </div>
-      <div>
+      <!-- <div>
         <v-btn color="primary" depressed small @click="logout">LOGOUT</v-btn>
-      </div>
+      </div> -->
     </div>
     
     <v-layout class="clock">
-      <v-flex xs2>
+      <v-flex xs4>
         <digiClock/>
       </v-flex>
     </v-layout>
@@ -145,6 +146,60 @@
       </svg>
 
     </div>
+
+    <v-dialog 
+      v-model="adminDialog"
+      max-width="300px"
+      persistent
+    >
+
+      <v-card>
+        <v-card-title class="primary white--text font-weight-bold title">Confirm Admin Access</v-card-title>
+        <div class="pa-6">
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                v-model="username"
+                label="Admin Username"
+                placeholder="Please enter your Admin Username"
+              >
+              </v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field 
+                label="Password" 
+                v-model="password"
+                :append-icon="toggle ? 'visibility_off' : 'visibility'"
+                :type="toggle ? 'text' : 'password'"
+                @click:append="toggle = !toggle"
+                @keyup.enter="adminLogin"
+              ></v-text-field> 
+            </v-flex>
+            <v-flex xs5>
+              <v-btn 
+                outlined 
+                color="primary" 
+                @click="closeDialog"
+              >CANCEL
+              </v-btn>
+            </v-flex>
+            <v-flex xs5>
+              <v-btn 
+                depressed 
+                color="primary" 
+                @click="adminLogin"
+                :disabled="!password || !username"
+                :loading="btnloading"
+              >LOGIN
+              </v-btn>
+            </v-flex>
+            <v-flex xs12 v-if="loginError">
+              <div class="font-weight-bold primary-text pa-3">{{ loginError }}</div>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -164,15 +219,30 @@ export default {
 
   data: () => ({
     loading: false,
+    toggle: false,
     idNum: null,
     showError: false,
-    errorMessage: ""
+    loginError: "",
+    errorMessage: "",
+    username: null,
+    password: null,
+    adminDialog: false,
+    btnloading: false,
+    btnLoading: false,
   }),
 
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
       this.$router.push('/');
+    },
+
+    closeDialog() {
+      this.adminDialog = !this.adminDialog; 
+      this.idNum = null;
+      this.loading = false;
+      this.username = null;
+      this.password = null;
     },
 
     async submitID() {
@@ -188,6 +258,11 @@ export default {
         this.showError = true;
         this.errorMessage = "Please Provide Your Student Number...";
         this.loading = false;
+        return;
+      }
+
+      if(this.idNum === 'admin') {
+        this.adminDialog = true;
         return;
       }
 
@@ -253,6 +328,32 @@ export default {
         this.errorMessage = "Student Number is INVALID!";
       }
       this.loading = false;
+    },
+
+    async adminLogin() {
+      this.btnloading = true;
+      
+      const credentials = {
+        username: this.username,
+        password: this.password
+      };
+
+      http
+        .post("labs/login", JSON.stringify(credentials))
+        .then((labDetails) => {
+          const data = labDetails.data;
+
+          if(data.labName === this.lab.labName) this.$router.push({name: 'dashboard'});
+          else this.loginError = "Incorrect Username or Password, try again." 
+          
+          this.btnloading = false;
+        })
+        .catch(error => {
+          console.log(error);
+          this.loginError = "Incorrect Username or Password, try again."
+          this.btnloading = false;
+        });
+      
     }
   },
 
@@ -276,15 +377,17 @@ export default {
 
   #clock {
     position: absolute;
-    left: 100px;
-    top: 25px;
-    width: 300px;
+    left: 135px;
+    top: 100px;
+    width: 525px;
+    transform: scale(1.1, 1.1);
   }
 
   .greetings {
     position: absolute;
-    left: 80px;
-    top: 110px;
+    left: 120px;
+    top: 200px;
+    transform: scale(1.1, 1.1);
   }
 
   #greetingsCard {
@@ -293,6 +396,7 @@ export default {
     background-color: #FFFDC1;
     
     font-family: Avenir LT Std;
+    /* font-family: 'Nunito Sans', sans-serif; */
     font-style: normal;
     font-weight: bold;
     font-size: 54px;
@@ -302,6 +406,7 @@ export default {
 
   .instruction {
     font-family: Avenir LT Std;
+    /* font-family: 'Nunito Sans', sans-serif; */
     font-style: normal;
     font-weight: bold;
     font-size: 40px;
@@ -312,6 +417,7 @@ export default {
   #subInstruction {
     margin-top: -15px;
     font-family: Avenir LT Std;
+    /* font-family: 'Nunito Sans', sans-serif; */
     font-style: italic;
     font-weight: 300;
     font-size: 20px;
@@ -330,7 +436,7 @@ export default {
 
   #textBox {
     margin-top: 30px;
-    width: 280px;
+    width: 320px;
     margin-left: 10px;
   }
 
@@ -339,14 +445,18 @@ export default {
     position: absolute;
     width: 400px;
     height: 500px;
-    left: 800px;
-    top: 100px;
+    left: 950px;
+    top: 145px;
     z-index: 3;
+    transform: scale(1.2, 1.2);
   }
 
   .bgShapes {
     position: absolute;
     z-index: 0;
+    left: 40px;
+    top: 5px;
+    transform: scale(1.1, 1.1);
   }
 
   #bigCircle {

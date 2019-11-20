@@ -126,8 +126,14 @@
                             </v-btn>
                         </v-flex>
                         <v-flex xs2 ml-4>
-                            <v-btn depressed x-large color="secondary" @click="submitReason" :loading="btnLoading" :disabled="btnLoading || !reason">
-                                CONFIRM
+                            <v-btn 
+                                depressed 
+                                x-large 
+                                color="secondary" 
+                                @click="submitReason" 
+                                :loading="btnLoading" 
+                                :disabled="btnLoading || !reason"
+                                >CONFIRM
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -167,6 +173,24 @@ export default {
 
         async submitReason() {
             this.btnLoading = true;
+            
+            if(this.reason === 'BorrowItem') {
+                this.$router.push({
+                    name: 'borrowItem',
+                    params: {
+                        visitorID: this.user.studNum,
+                    }
+                });
+                return;
+            } else if(this.reason === 'ReturnItem') {
+                this.$router.push({
+                    name: 'returnItem',
+                    params: {
+                        visitorID: this.user.studNum,
+                    }
+                });
+                return;
+            }
             
             const labAttendance = {
                 visitorID: this.user.studNum,

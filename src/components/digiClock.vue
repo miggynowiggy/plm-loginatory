@@ -1,11 +1,13 @@
 <template>
     <div id="clock">
         <v-layout row align-center justify-start>
-            <v-flex class="time">
+            <v-flex xs4 class="time">
                 <div class="text-start">{{ time }}</div>
             </v-flex>
             
-            <v-flex class="date">
+            <v-divider vertical light></v-divider>
+            
+            <v-flex ml-3 xs6 class="date">
                 <div class="text-start">{{ date }}</div>
             </v-flex>
         </v-layout>
