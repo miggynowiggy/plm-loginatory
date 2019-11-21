@@ -2,9 +2,12 @@
     <div>
         <navDrawer/>
         
-        <v-layout align-center ma-5>
-            <v-flex xs6>
+        <v-layout align-end justify-end ma-6>
+            <v-flex xs12 md7>
                 <div id="title">DASHBOARD</div>
+            </v-flex>
+            <v-flex xs12 offset-md1 md6 align-content-end>
+                <digiClock></digiClock>
             </v-flex>
         </v-layout>
 
@@ -88,7 +91,7 @@
 
 <script>
     import navDrawer from "@/components/navDrawer.vue";
-    import HeaderToolbar from "@/components/headerToolbar.vue";
+    import digiClock from  "@/components/digiClock.vue";
 
     export default {
         data: () => ({
@@ -291,7 +294,7 @@
 
         components: {
             navDrawer,
-            HeaderToolbar,
+            digiClock,
         }
     }
 </script>
