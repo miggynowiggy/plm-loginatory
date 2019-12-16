@@ -4,13 +4,16 @@ import Login from "./views/Login.vue";
 import LandingLogin from "./views/LandingLogin.vue";
 import ReasonEncoding from "./views/ReasonEncoding.vue";
 import ConfirmEntry from "./views/confirmEntrance.vue";
-import ConfirmExit from "./views/confirmExit.vue";
 import BorrowItem from "./views/borrowItem.vue";
 import ReturnItem from "./views/returnItem.vue";
+import PrintReceipt from "./views/printReciept.vue";
 
 import Dashboard from "./views/AdminView/dashboard.vue";
 import VisitorsView from "./views/AdminView/visitorsView.vue";
 import Inventory from "./views/AdminView/inventory.vue";
+import Transactions from "./views/AdminView/borrowersTransactions.vue";
+
+import Support from "./views/support.vue";
 
 Vue.use(Router);
 
@@ -39,14 +42,14 @@ export default new Router({
       component: ConfirmEntry,
     },
     {
-      path: "/confirmExit",
-      name: "confirmExit",
-      component: ConfirmExit,
-    },
-    {
       path: "/borrowItem",
       name: "borrowItem",
       component: BorrowItem
+    },
+    {
+      path: "/print",
+      name: "printReciept",
+      component: PrintReceipt
     },
     {
       path: "/returnItem",
@@ -67,6 +70,16 @@ export default new Router({
       path: "/inventory",
       name: "inventory",
       component: Inventory,
+    },
+    {
+      path: "/borrowersTransaction",
+      name: "borrowersTransactions",
+      component: Transactions,
+    },
+    {
+      path: "/support",
+      name: "support",
+      component: Support,
     }
   ]
 });

@@ -1,3 +1,4 @@
+<!--LandingLogin.vue-->
 <template>
   <div class="about">
     <div class="greetings">
@@ -49,7 +50,7 @@
     </div>
     
     <v-layout class="clock">
-      <v-flex xs4>
+      <v-flex xs12>
         <digiClock/>
       </v-flex>
     </v-layout>
@@ -214,7 +215,14 @@ import ReasonEncodingVue from './ReasonEncoding.vue';
 
 export default {
   mounted() {
-    
+    const lab = this.$store.getters.GET_CURRENT_LAB;
+
+    if(lab.labName) {
+      this.$router.push({name: 'landingLogin'});
+    }
+    else {
+      this.$router.push({name: 'login'});
+    }
   },
 
   data: () => ({
@@ -317,8 +325,8 @@ export default {
 
         this.$router.push(
           {
-            name: 'confirmExit',
-            params: { stuDetails: stuDetails }
+            name: 'confirmEntry',
+            params: { stuDetails: stuDetails, state: "exit" }
           }
         );
       }
@@ -379,7 +387,6 @@ export default {
     position: absolute;
     left: 135px;
     top: 100px;
-    width: 525px;
     transform: scale(1.1, 1.1);
   }
 
@@ -393,7 +400,7 @@ export default {
   #greetingsCard {
     width: 560px;
     height: 198px;
-    background-color: #FFFDC1;
+    background-color: #fff6da;
     
     font-family: Avenir LT Std;
     /* font-family: 'Nunito Sans', sans-serif; */

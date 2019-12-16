@@ -1,14 +1,17 @@
+<!--LOGIN.VUE-->
 <template>
   <v-container fluid fill-height>
-    <div class="picHeader">
-      <v-img 
-        :src="require('@/assets/bldg.jpg')"
-        alt="plmBG"
-        gradient="to top right, rgba(200,36,58,.33), rgba(217,27,44,.7)"
-      ></v-img>
-    </div>
-
     <v-layout row wrap align-center justify-center class="textHeader">
+      <v-overlay value="true" z-index="-1">
+        <v-img 
+          :src="require('@/assets/plm2.jpg')"
+          alt="plmBG"
+          gradient="to top right, rgba(200,36,58,.33), rgba(217,27,44,.7)"
+          height="100vh"
+          width="100vw"
+        ></v-img>
+      </v-overlay>
+
       <v-flex xs12 md3>
         <v-card 
           height="300px" 
@@ -119,16 +122,12 @@
 
 <script>
 import plmLogo from "@/assets/plmlogo.png";
-import plmBG from "@/assets/img/plm2.jpg";
+import plmBG from "@/assets/plm2.jpg";
 import http from "../http-common";
 
 export default {
-  computed: {
-    plmBG() {
-      return plmBG || "@/assets/img/plm2.jpg";
-    }
+  mounted() {
   },
-  
   data: () => ({
     toggle: false,
     btnLoading: false,
@@ -160,14 +159,11 @@ export default {
         });
     }  
   },
-
-  computed: {
-    
-  },
 };
 </script>
+
 <style scoped>
-  .picHeader {
+  #picHeader {
     position: absolute;
     left: 0px;
     top: -163px;

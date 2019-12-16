@@ -4,4 +4,8 @@ module.exports = {
   //   assetsPublicPath: '/',
   //   assetsSubDirectory: 'assets'
   // },
+  // serve: {
+  //   assetsPublicPath: '/',
+  //   assetsSubDirectory: 'assets'
+  // },
 };

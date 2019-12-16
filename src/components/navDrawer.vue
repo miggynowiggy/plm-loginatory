@@ -5,13 +5,14 @@
             :clipped="$vuetify.breakpoint.mdAndUp"
             app
             v-model="drawer"
+            width="200px"
         >
             <v-list dense nav>
 
                 <v-list-item
                     v-for="item in sections"
                     :key="item.name"
-                    @click="$router.push(item.path)"
+                    :to="{name: item.path}"
                     link
                 >
                     <v-list-item-icon>
@@ -25,7 +26,7 @@
 
                 <v-divider></v-divider>
 
-                <v-list-item link>
+                <v-list-item link :to="{name: 'support'}">
                     <v-list-item-icon>
                         <v-icon>help</v-icon>
                     </v-list-item-icon>
@@ -98,7 +99,9 @@
 
 <script>
     export default {
-        
+        mounted() {
+            console.log("FROM NAVBAR COMPONENT: ", this.$route.query.page);
+        },  
         data: () => ({
             dialog: false,
             confirmDialog: false,
@@ -108,17 +111,22 @@
                 {
                     name: "Dashboard",
                     icon: "dashboard",
-                    path: "/dashboard"
+                    path: "dashboard"
                 },
                 {
                     name: "Visitors",
                     icon: "people",
-                    path: "/visitorsView"
+                    path: "visitorsView"
                 }, 
                 {  
                     name: "Inventory",
                     icon: "shopping_basket",
-                    path: "/inventory"
+                    path: "inventory"
+                },
+                {  
+                    name: "Transactions",
+                    icon: "storefront",
+                    path: "borrowersTransactions"
                 }
             ],
         }),

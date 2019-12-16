@@ -1,18 +1,20 @@
+<!--ReasonEncoding.vue-->
 <template>
     <div>
         <!--Avatar Display-->
         <v-layout row wrap align-center justify-center mt-6 ml-2>
             <v-flex xs2 offset-xs1>
-                <div class="avatar">
-                    <v-avatar size="180">
+                <div>
+                    <v-avatar size="200" class="ml-6">
                         <v-img
-                            :src="user.imgURL"
+                            :src="user.profilepic"
+                            :lazy-src="require('@/assets/avatars/placeholder.png')"
                             alt="avatar"
                         ></v-img>
                     </v-avatar>
                 </div>
             </v-flex>
-            <v-flex xs5 mt-4>
+            <v-flex xs5 mt-6>
                 <div class="greeting">
                     <p>GOOD DAY</p>
                     <p>{{ user.firstName }}!</p>
@@ -20,7 +22,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout row align-center justify-center mt-5 ml-2>
+        <v-layout row align-center justify-center mt-8>
             <v-flex xs4>
                 <digiClock/>
             </v-flex>
@@ -119,13 +121,14 @@
                             ></v-textarea>
                         </v-flex>
                     </v-layout>
-                    <v-layout row align-start justify-center mt-5>
+                    <v-layout row align-start justify-center mt-7>
                         <v-flex xs2>
-                            <v-btn depressed outlined x-large color="secondary" @click="$router.go(-1)"> 
+                            <v-btn depressed outlined x-large color="secondary" @click="$router.push('/read')"> 
+                                <v-icon left large>navigate_before</v-icon>
                                 BACK
                             </v-btn>
                         </v-flex>
-                        <v-flex xs2 ml-4>
+                        <v-flex xs3 offset-xs1>
                             <v-btn 
                                 depressed 
                                 x-large 
@@ -134,6 +137,7 @@
                                 :loading="btnLoading" 
                                 :disabled="btnLoading || !reason"
                                 >CONFIRM
+                                <v-icon right large>navigate_next</v-icon>
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -163,6 +167,7 @@ export default {
         reasonList: ["Lecture", "Lab Activity", "Lec and Lab", "Borrow Item/s", "Return Item/s", "Others"],
         reason: null,
         labID: null,
+        btnLoading: false,
     }),
     
     methods: {
@@ -179,6 +184,7 @@ export default {
                     name: 'borrowItem',
                     params: {
                         visitorID: this.user.studNum,
+                        stuDetails: this.user,
                     }
                 });
                 return;
@@ -187,12 +193,17 @@ export default {
                     name: 'returnItem',
                     params: {
                         visitorID: this.user.studNum,
+                        stuDetails: this.user,
                     }
                 });
                 return;
             }
             
             const labAttendance = {
+                firstName: this.user.firstName,
+                lastName: this.user.lastName,
+                course: this.user.course,
+                yr: this.user.yr,
                 visitorID: this.user.studNum,
                 labID: this.labID,
                 purpose: this.customReason === "" ? this.reason : this.customReason,
@@ -208,7 +219,7 @@ export default {
 
                 this.$router.push({
                     name: 'confirmEntry', 
-                    params: {stuDetails: this.user}
+                    params: {stuDetails: this.user, state: "entry"}
                 });
                 this.btnLoading = false;
             }

@@ -1,18 +1,34 @@
 import Vue from "vue";
 import Vuetify from "vuetify/lib";
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import colors from 'vuetify/lib/util/colors'
+import '@fortawesome/fontawesome-free/css/all.css'
+import colors from 'vuetify/lib/util/colors';
+import store from "@/store";
+
+var labDetails = store.getters.GET_CURRENT_LAB;
+var primaryColor = labDetails.primaryColor;
+var secondaryColor = labDetails.secondaryColor;
+
+if(!primaryColor) {
+  primaryColor = "#D1243A";
+}
+
+if(!secondaryColor) {
+  secondaryColor = "#498B98";
+}
+
+console.log(labDetails);
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: "md"
+    iconfont: "md" || "fa"
   },
   theme: {
     themes: {
       light: {
-        primary: "#D1243A" /*colors.red.darken2*/,
+        primary: "#D1243A", /*colors.red.darken2*/
         secondary: "#498B98",
         accent: "#FFC857",
         error: "#FF5252",
