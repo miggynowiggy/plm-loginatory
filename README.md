@@ -4,7 +4,7 @@ A school project requirement for the subject Object-Oriented Programming.
 
 <hr/>
 
-Download the working prototype <a href="shorturl.at/mtHL9">HERE</a>. (ZIP file): 
+Download the working prototype <a href="http://www.shorturl.at/mtHL9">HERE</a>. (ZIP file): 
 
 <hr/>
 
