@@ -1,5 +1,5 @@
 # PLM Loginatory (frontend)
-A attendance tracker and simple inventory web application for the laboratories of Pamantasan ng Lungsod ng Maynila
+A attendance tracker and simple inventory web application for the laboratories of Pamantasan ng Lungsod ng Maynila. <br/>
 A school project requirement for the subject Object-Oriented Programming. 
 
 <hr/>
