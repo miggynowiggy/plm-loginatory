@@ -9,10 +9,6 @@ This is a password-protected website, to have the access credential please email
 with a subject: <b>password request</b>
 and indicate reason for visiting the site.
 
-<hr/>
-<b>NOTE:</b> This working prototype is executable in <em>Windows-based machine</em> only. 
-
-<hr/>
 
 ## Project setup
 ```
