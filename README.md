@@ -4,7 +4,7 @@ A school project requirement for the subject Object-Oriented Programming.
 
 <hr/>
 
-This is a password-protected website, to have the password please email me at
+This is a password-protected website, to have the access credential please email me at
 <b>mendozajuanmiguel11@gmail.com</b>
 with a subject: <b>password request</b>
 and indicate reason for visiting the site.
