@@ -55,4 +55,18 @@ export default {
     font-style: italic;
   }
 
+  @font-face {
+    font-family: 'Avenir LT Std';
+    src: url('./assets/fonts/AvenirNextLTPro-Bold.ttf') format('truetype'),
+         url('./assets/fonts/AvenirNextLTPro-Bold.woff') format('woff'),
+         url('./assets/fonts/AvenirNextLTPro-Bold.woff2') format('woff2');;
+    font-style: bold;
+  }
+
+  @font-face {
+    font-family: 'Avenir LT Std';
+    src: url('./assets/fonts/AvenirLTStd-MediumOblique.otf') format('opentype');
+    font-style: italic;
+  }
+
 </style>
