@@ -29,3 +29,24 @@ export default {
   })
 };
 </script>
+
+<style>
+  @font-face {
+    font-family: 'Avenir Next LT Pro';
+    src: url('./assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Avenir Next LT Pro';
+    src: url('./assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
+    font-style: bold;
+  }
+
+  @font-face {
+    font-family: 'Avenir Next LT Pro';
+    src: url('./assets/fonts/AvenirNextLTPro-It.otf') format('opentype');
+    font-style: italic;
+  }
+
+</style>
