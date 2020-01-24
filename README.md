@@ -4,13 +4,10 @@ A school project requirement for the subject Object-Oriented Programming.
 
 <hr/>
 
-Download the working prototype <a href="http://www.shorturl.at/mtHL9" target="_blank">HERE</a>. (ZIP file): 
-
-<hr/>
-
-This is a password-protected zip file, to have the password please email me at
+This is a password-protected website, to have the password please email me at
 <b>mendozajuanmiguel11@gmail.com</b>
 with a subject: <b>password request</b>
+and indicate reason for visiting the site.
 
 <hr/>
 <b>NOTE:</b> This working prototype is executable in <em>Windows-based machine</em> only. 
