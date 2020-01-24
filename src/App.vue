@@ -33,19 +33,25 @@ export default {
 <style>
   @font-face {
     font-family: 'Avenir Next LT Pro';
-    src: url('./assets/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+    src: url('./assets/fonts/AvenirNextLTPro-Regular.ttf') format('truetype'),
+         url('./assets/fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+         url('./assets/fonts/AvenirNextLTPro-Regular.woff2') format('woff2');
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Avenir Next LT Pro';
-    src: url('./assets/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
+    src: url('./assets/fonts/AvenirNextLTPro-Bold.ttf') format('truetype'),
+         url('./assets/fonts/AvenirNextLTPro-Bold.woff') format('woff'),
+         url('./assets/fonts/AvenirNextLTPro-Bold.woff2') format('woff2');
     font-style: bold;
   }
 
   @font-face {
     font-family: 'Avenir Next LT Pro';
-    src: url('./assets/fonts/AvenirNextLTPro-It.otf') format('opentype');
+    src: url('./assets/fonts/AvenirNextLTPro-It.ttf') format('truetype'),
+         url('./assets/fonts/AvenirNextLTPro-It.woff') format('woff'),
+         url('./assets/fonts/AvenirNextLTPro-It.woff2') format('woff2');
     font-style: italic;
   }
 
