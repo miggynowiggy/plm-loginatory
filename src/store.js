@@ -15,7 +15,7 @@ const vuexLocalStorage = new VuexPersist({
 
 
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     currentLab: null,
   },
@@ -39,3 +39,5 @@ export default new Vuex.Store({
 
   plugins: [vuexLocalStorage.plugin]
 });
+
+export default store;
