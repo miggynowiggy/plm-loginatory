@@ -10,13 +10,6 @@
 
 export default {
   name: "App",
-  beforeUpdate() {
-    // const lab = this.$store.getters.GET_CURRENT_LAB;
-    // // console.log("FROM app", lab);
-    // if(!lab.labName || lab.labName === null || lab === undefined) {
-    //   this.$router.push("/");
-    // }
-  },
 
   computed: {
     lab() {
