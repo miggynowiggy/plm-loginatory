@@ -5,9 +5,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import colors from 'vuetify/lib/util/colors';
 import store from "@/store";
 
-var labDetails = store.getters.GET_CURRENT_LAB;
-var primaryColor = labDetails.primaryColor;
-var secondaryColor = labDetails.secondaryColor;
+var labDetails = store.getters.GET_CURRENT_LAB || {};
+var primaryColor = labDetails.primaryColor || null;
+var secondaryColor = labDetails.secondaryColor || null;
 
 if(!primaryColor) {
   primaryColor = "#D1243A";
