@@ -17,7 +17,7 @@ const vuexLocalStorage = new VuexPersist({
 
 export default new Vuex.Store({
   state: {
-    currentLab: {},
+    currentLab: null,
   },
 
   getters: {
@@ -29,7 +29,7 @@ export default new Vuex.Store({
       state.currentLab = payload;
     },
     LOGOUT (state) {
-      state.currentLab = {};
+      state.currentLab = null;
     }
   },
   
