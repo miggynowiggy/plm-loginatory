@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+
 import Login from "./views/Login.vue";
 import LandingLogin from "./views/LandingLogin.vue";
 import ReasonEncoding from "./views/ReasonEncoding.vue";
@@ -14,10 +15,11 @@ import Inventory from "./views/AdminView/inventory.vue";
 import Transactions from "./views/AdminView/borrowersTransactions.vue";
 
 import Support from "./views/support.vue";
+import { store } from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -81,5 +83,18 @@ export default new Router({
       name: "support",
       component: Support,
     }
-  ]
+  ],
 });
+
+router.beforeEach((to, from, next) => {
+  const currentLab = store.getters['GET_CURRENT_LAB'];
+
+  if(!currentLab && to.name !== 'login') {
+    next({name: 'login'})
+  
+  } else {
+    next();
+  }
+});
+
+export default new router;
