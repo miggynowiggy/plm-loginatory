@@ -15,7 +15,7 @@ import Inventory from "./views/AdminView/inventory.vue";
 import Transactions from "./views/AdminView/borrowersTransactions.vue";
 
 import Support from "./views/support.vue";
-import { store } from '@/store';
+import store from '@/store';
 
 Vue.use(Router);
 
@@ -90,11 +90,11 @@ router.beforeEach((to, from, next) => {
   const currentLab = store.getters['GET_CURRENT_LAB'];
 
   if(!currentLab && to.name !== 'login') {
-    next({name: 'login'})
+    next({name: 'login'});
   
   } else {
     next();
   }
 });
 
-export default new router;
+export default router;
